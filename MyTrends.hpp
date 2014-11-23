@@ -1,20 +1,34 @@
 #include "Trends.h"
 
 #include <vector>
-#include <map>
+#include <unordered_map>
+#include <iterator>
 
 class MyTrends : public Trends {
 public:
+	MyTrends();
 	virtual void increaseCount(std::string s, unsigned int amount);
 	virtual unsigned int getCount(std::string s);
 	virtual std::string getNthPopular(unsigned int n);
 	virtual unsigned int numEntries();
 
 protected:
-	std::vector< std::pair<std::string, int> > words;
+	bool should_sort;
+	unsigned int sort_start;
+	unsigned int sort_end;
 
-	std::unordered_map<std::string, int> word_count;
+//	std::vector< std::pair<std::string, unsigned int> >::iterator sort_start;
+	
+	std::vector< std::pair<std::string, unsigned int> > words;
 
-	virtual bool compare(std::pair< std::string, int> p1,
-			     std::pair< std::string, int> p2);
+	std::unordered_map<std::string, unsigned int> word_count;
+
+//	virtual bool compare(std::pair< std::string, unsigned int> &p1,
+//			     std::pair< std::string, unsigned int> &p2);
+
+	virtual void add_word(std::string s, unsigned int amount,
+			      std::unordered_map<std::string, unsigned int>::iterator &it);
+
+	virtual void increment_word(std::string s, unsigned int amount,
+				    std::unordered_map<std::string, unsigned int>::iterator &it);
 };

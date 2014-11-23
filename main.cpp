@@ -12,8 +12,11 @@
 #include <vector>
 #include <time.h>
 
+//#include "MyTrends.hpp"
 #include "smarterTrends.h" //You will need to change this to match your own class
 #include "utilities.h"
+
+#define TRENDS smarterTrends()
 
 /**
  * This tests a simple (but unlikely) use case, which is to read in all the data, and then print out the data in sorted order
@@ -22,7 +25,7 @@
  * Compare your 28885.txt.out to 28885_txt.out, using diff,s to see if your code is producing correct output.
  */
 double useCase_addAllThenGetInOrder(){
-	Trends* tr = new smarterTrends(); //You will need to change this to match your own class!
+	Trends* tr = new TRENDS; //You will need to change this to match your own class!
 
 	std::vector<std::string> wordlist = getWordList("data/28885.txt");
 
@@ -39,7 +42,7 @@ double useCase_addAllThenGetInOrder(){
 
 	//Now we will print out the complete results. This could be REALLY clow, if
 	// your getNthPopular is not a little bit smart.
-	std::string outfname = "data/28885.txt.out";
+	std::string outfname = "data/28885.txt.out.smarter";
 	std::ofstream out(outfname.c_str());
 
 	start = getTimeInMillis();
@@ -63,7 +66,7 @@ void usecase_add_and_get_random_word(void)
 	std::random_device rd;
 	std::default_random_engine rand(rd());
 
-	Trends *tr = new smarterTrends();
+	Trends *tr = new TRENDS;
 
 	std::vector<std::string> words = getWordList("data/28885.txt");
 
@@ -96,7 +99,7 @@ void usecase_add_and_get_most_popular(void)
 	std::random_device rd;
 	std::default_random_engine rand(rd());
 	
-	Trends *tr = new smarterTrends();
+	Trends *tr = new TRENDS;
 
 	std::vector<std::string> words = getWordList("data/28885.txt");
 
@@ -125,7 +128,7 @@ void usecase_add_all_add_to_random(void)
 {
 	std::cout << "--- begin test: add all items then increment random words by random amounts ---" << std::endl;
 	
-	Trends *tr = new smarterTrends();
+	Trends *tr = new TRENDS;
 
 	std::vector<std::string> words = getWordList("data/28885.txt");
 
@@ -146,14 +149,13 @@ void usecase_add_all_add_to_random(void)
 	start = getTimeInMillis();
 	for (int i = 0; i < words.size(); i++) {
 		int word_num = rand() % tr->numEntries();
-		int amount = rand();
 		std::string word = tr->getNthPopular(word_num);
-		tr->increaseCount(word, amount);
+		tr->increaseCount(word, 1);
 		out << tr->getNthPopular(0) << std::endl;
 	}
 	end = getTimeInMillis();
 
-	std::cout << "add random amount to random word and get most popular: " << (end - start) / words.size()
+	std::cout << "add 1 to random word and get most popular: " << (end - start) / words.size()
 		  << " ms per word, total time: " << (end - start) << " ms" << std::endl;
 	std::cout << "--- end test ---" << std::endl;
 
@@ -169,12 +171,12 @@ int main(){
 
 	/* The data files are books from project Gutenberg. I have provided the inputs, as well as my outputs
 	 * in the starter files */
-	
+
 //	useCase_addAllThenGetInOrder();
 
-	usecase_add_and_get_random_word();
+//	usecase_add_and_get_random_word();
 	usecase_add_and_get_most_popular();
-	usecase_add_all_add_to_random();
+//	usecase_add_all_add_to_random();
 
 	return 0;
 }
