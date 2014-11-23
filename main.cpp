@@ -12,11 +12,11 @@
 #include <vector>
 #include <time.h>
 
-//#include "MyTrends.hpp"
-#include "smarterTrends.h" //You will need to change this to match your own class
+#include "MyTrends.hpp"
+//#include "smarterTrends.h" //You will need to change this to match your own class
 #include "utilities.h"
 
-#define TRENDS smarterTrends()
+#define TRENDS MyTrends()
 
 /**
  * This tests a simple (but unlikely) use case, which is to read in all the data, and then print out the data in sorted order
@@ -168,15 +168,14 @@ void usecase_add_all_add_to_random(void)
  * point it may take so long to do the getNthPopular, that we aren't willing to wait for it to finish.
  */
 int main(){
-
 	/* The data files are books from project Gutenberg. I have provided the inputs, as well as my outputs
 	 * in the starter files */
 
-//	useCase_addAllThenGetInOrder();
+	useCase_addAllThenGetInOrder();
 
-//	usecase_add_and_get_random_word();
+	usecase_add_and_get_random_word();
 	usecase_add_and_get_most_popular();
-//	usecase_add_all_add_to_random();
+	usecase_add_all_add_to_random();
 
 	return 0;
 }

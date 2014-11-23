@@ -20,18 +20,16 @@ void MyTrends::increaseCount(std::string s, unsigned int amount)
 	auto iterator = word_count.find(s);
 
 	if (iterator == word_count.end()) {
-		add_word(s, amount, iterator);
+		add_word(s, amount);
 	} else {
 		increment_word(s, amount, iterator);
 	}
 }
 
-void MyTrends::add_word(std::string s, unsigned int amount,
-			std::unordered_map<std::string, unsigned int>::iterator &it)
+void MyTrends::add_word(std::string s, unsigned int amount)
 {
 	// add word to our count list
 	word_count[s] = amount;
-//	it->second = amount;
 	
 	std::pair<std::string, unsigned int> pair = std::make_pair(s, amount);
 
@@ -53,6 +51,7 @@ void MyTrends::add_word(std::string s, unsigned int amount,
 	if (compare(words[pos], words[temp])) {
 		should_sort = true;
 
+		
 		while (temp != 0 && compare(words[pos], words[temp])) {
 			temp--;
 		}
@@ -68,25 +67,6 @@ void MyTrends::add_word(std::string s, unsigned int amount,
 	if (pos > sort_end) {
 		sort_end = pos;
 	}
-
-	/*
-	if (compare(words[pos], words[pos - 1])) {
-		// we only need to sort the list if the item we just added is
-		// larger than the one to its left
-
-		unsigned int temp = pos - 1;
-		std::vector< std::pair<std::string, unsigned int> >::iterator larger_it;
-
-		while (compare(words[pos], words[temp]) && temp != 0) {
-			temp--;
-		}
-
-		larger_it = (words.end() - 1) - temp;
-		
-		std::sort(larger_it, words.end(), compare);
-//		std::sort(words.begin(), words.end(), compare);
-	}
-	*/
 }
 
 void MyTrends::increment_word(std::string s, unsigned int amount,
@@ -99,9 +79,9 @@ void MyTrends::increment_word(std::string s, unsigned int amount,
 
 	// find this item in the words list
 	auto item_it = std::find_if(words.begin(), words.end(),
-		[&] (const std::pair<std::string, unsigned int> &p) {
-			return p.first == s;
-		});
+				    [&] (const std::pair<std::string, unsigned int> &p) {
+					    return p.first == s;
+				    });
 
 	// increment its word count in the list
 	item_it->second += amount;
@@ -134,23 +114,6 @@ void MyTrends::increment_word(std::string s, unsigned int amount,
 	if (pos > sort_end) {
 		sort_end = pos;
 	}
-
-	/*
-	if (item_it == words.begin()) {
-		return;
-	}
-
-	if (compare(*item_it, *(item_it - 1))) {
-		std::vector< std::pair<std::string, unsigned int> >::iterator larger_it = item_it - 1;
-
-		while (compare(*item_it, *larger_it) && larger_it != words.begin()) {
-			--larger_it;
-		}
-		
-		std::sort(larger_it, item_it, compare);
-//		std::sort(words.begin(), words.end(), compare);
-	}
-	*/
 }
 
 unsigned int MyTrends::getCount(std::string s)

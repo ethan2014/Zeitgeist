@@ -26,8 +26,7 @@ protected:
 //	virtual bool compare(std::pair< std::string, unsigned int> &p1,
 //			     std::pair< std::string, unsigned int> &p2);
 
-	virtual void add_word(std::string s, unsigned int amount,
-			      std::unordered_map<std::string, unsigned int>::iterator &it);
+	virtual void add_word(std::string s, unsigned int amount);
 
 	virtual void increment_word(std::string s, unsigned int amount,
 				    std::unordered_map<std::string, unsigned int>::iterator &it);
