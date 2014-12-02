@@ -2,8 +2,8 @@ CC	= g++
 CFLAGS	= -std=c++14 -Wall -Werror
 SOURCES	= src/*.cpp
 TARGET	= main
-DEBUG	= debug
-RELEASE = release
+DEBUG	= debug.out
+RELEASE = release.out
 
 all: $(TARGET)
 

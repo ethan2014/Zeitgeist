@@ -13,7 +13,6 @@ MyTrends::MyTrends()
 	should_sort = false;
 	sort_start = words.size();
 	sort_end = 0;
-//	sort_start = words.end();
 }
 
 void MyTrends::increaseCount(std::string s, unsigned int amount)
@@ -38,9 +37,9 @@ void MyTrends::add_word(std::string s, unsigned int amount)
 	words.push_back(pair);
 
 	// get the position of this new item
-	unsigned int pos = words.size() - 1;
+//	unsigned int pos = words.size() - 1;
 
-	find_first_largest(pos);
+	find_first_largest(words.size() - 1);
 }
 
 void MyTrends::increment_word(std::string s, unsigned int amount,
@@ -60,9 +59,9 @@ void MyTrends::increment_word(std::string s, unsigned int amount,
 	// increment its word count in the list
 	item_it->second += amount;
 
-	unsigned int pos = std::distance(words.begin(), item_it);
+//	unsigned int pos = std::distance(words.begin(), item_it);
 
-	find_first_largest(pos);
+	find_first_largest(std::distance(words.begin(), item_it));
 }
 
 void MyTrends::find_first_largest(unsigned int pos)
@@ -72,33 +71,39 @@ void MyTrends::find_first_largest(unsigned int pos)
 		return;
 	}
 
-	unsigned int temp = pos - 1;
+	// make sure its actually worth looking for sort start and end positions
+	if (sort_start == 0 && sort_end == words.size() - 1) {
+		return;
+	}
 
-	if (sort_start != words.size() && compare(words[sort_start], words[pos])) {
+	unsigned int temp = pos - 1;	
+
+	// if the item at sort_start is already larger that at pos, we dont need
+	// to look any further, the item at pos will be sorted
+	if (sort_start < pos && compare(words[sort_start], words[pos])) {
 		goto done;
 	}
 
-	if (sort_start != words.size()) {
+	// if the current start position of sorting is less than the position of
+	// our item, we can start searching at sort_start
+	if (sort_start < pos) {
 		temp = sort_start;
 	}
 
-	// if the item to the left of ours is smaller than ours we need
-	// to sort.  the current start position for sorting must also be
-	// larger than the position of this item
 	should_sort = true;
 
+	// keep looking to the left of pos until an item that is bigger is found
 	while (temp != 0 && compare(words[pos], words[temp])) {
 		temp--;
 	}
 
-	// temp is now the distance between our item in the list and the first
-	// item to its left that is larger than it, we need to convert this number
-	// to a distance from the start of the list
+	// temp is now a possible candidate for sort_start
 	if (temp < sort_start) {
 		sort_start = temp;
 	}
 
 done:
+	// pos is now a possible candidate for sort_end
 	if (pos > sort_end) {
 		sort_end = pos;
 	}
@@ -113,8 +118,8 @@ std::string MyTrends::getNthPopular(unsigned int n)
 {
 	if (should_sort) {
 //		std::cout << words.size() << " " << (sort_end - sort_start) << std::endl;
-//		std::sort(words.begin() + sort_start, words.begin() + sort_end + 1, compare);
-		std::sort(words.begin(), words.end(), compare);
+		std::sort(words.begin() + sort_start, words.begin() + sort_end + 1, compare);
+//		std::sort(words.begin(), words.end(), compare);
 		should_sort = false;
 		sort_start = words.size();
 		sort_end = 0;

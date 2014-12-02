@@ -113,11 +113,6 @@ void test_add_get_most_pop(void)
 		tr.increaseCount(words[i], 1);
 		std::string temp = tr.getNthPopular(0);
 		out << temp << " " << tr.getCount(temp) << std::endl;
-
-		//	if (words[i] == "Adventures") {
-		//		std::cout << "Adventures added at pos: " << i << std::endl;
-		//		break;
-		//	}
 	}
 
 	double end = getTimeInMillis();
