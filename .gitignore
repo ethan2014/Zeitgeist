@@ -16,3 +16,7 @@
 
 # my executable file
 main
+debug.out
+release.out
+
+data/*
