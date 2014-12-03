@@ -14,12 +14,13 @@
 *.la
 *.a
 
+# temp files created by emacs
+*~
+
 # my executable file
 main
 debug.out
 release.out
 
 # output files in data
-*.txt.out.me
-*.txt.out.smart
-*.txt.out
+data/
