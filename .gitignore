@@ -19,4 +19,5 @@ main
 debug.out
 release.out
 
-data/*
+# output files in data
+*.txt.out.*

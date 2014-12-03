@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <iterator>
 
-class MyTrends : public Trends {
+class MyTrends : public Trends{
 public:
 	MyTrends();
 	virtual void increaseCount(std::string s, unsigned int amount);
@@ -26,10 +26,10 @@ protected:
 //	virtual bool compare(std::pair< std::string, unsigned int> &p1,
 //			     std::pair< std::string, unsigned int> &p2);
 
-	virtual void add_word(std::string &s, unsigned int amount);
+	virtual void add_word(const std::string &s, unsigned int amount);
 
-	virtual void increment_word(std::string &s, unsigned int amount,
-				    std::unordered_map<std::string, unsigned int>::iterator &it);
+	virtual void increment_word(const std::string &s, unsigned int amount,
+				    const std::unordered_map<std::string, unsigned int>::iterator &it);
 
 	virtual void find_first_largest(unsigned int pos);
 };

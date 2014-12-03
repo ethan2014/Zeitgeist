@@ -17,7 +17,7 @@ MyTrends::MyTrends()
 
 void MyTrends::increaseCount(std::string s, unsigned int amount)
 {
-	auto iterator = word_count.find(s);
+	const auto iterator = word_count.find(s);
 
 	if (iterator == word_count.end()) {
 		add_word(s, amount);
@@ -26,21 +26,19 @@ void MyTrends::increaseCount(std::string s, unsigned int amount)
 	}
 }
 
-void MyTrends::add_word(std::string &s, unsigned int amount)
+void MyTrends::add_word(const std::string &s, unsigned int amount)
 {
 	// add word to our count list
 	word_count[s] = amount;
 	
-	std::pair<std::string, unsigned int> pair = std::make_pair(s, amount);
-
 	// add this word and its count to the list of words
-	words.push_back(pair);
+	words.push_back(std::make_pair(s, amount));
 
 	find_first_largest(words.size() - 1);
 }
 
-void MyTrends::increment_word(std::string &s, unsigned int amount,
-			      std::unordered_map<std::string, unsigned int>::iterator &it)
+void MyTrends::increment_word(const std::string &s, unsigned int amount,
+			      const std::unordered_map<std::string, unsigned int>::iterator &it)
 {
 	// increment word count in our word count table
 	it->second += amount;
@@ -72,11 +70,10 @@ void MyTrends::find_first_largest(unsigned int pos)
 		return;
 	}
 
-	register unsigned int temp = pos - 1;	
-
 	// if sort_start is already at the start of the list or if the item at
 	// sort_start is already larger than at pos, we dont need to look any further,
 	// the item at pos will be sorted.  we just need to update sort_end if needed
+
 	if (sort_start == 0 || (sort_start < pos && compare(words[sort_start], words[pos]))) {
 		if (pos > sort_end) {
 			sort_end = pos;
@@ -84,6 +81,8 @@ void MyTrends::find_first_largest(unsigned int pos)
 
 		return;
 	}
+
+	register unsigned int temp = pos - 1;
 
 	// if the current start position of sorting is less than the position of
 	// our item, we can start searching at sort_start
