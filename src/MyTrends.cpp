@@ -54,8 +54,7 @@ void MyTrends::increment_word(const std::string &s, unsigned int amount,
 	// increment its word count in the list
 	item_it->second += amount;
 
-	find_first_largest(words.begin() - item_it);
-//	find_first_largest(std::distance(words.begin(), item_it));
+	find_first_largest(std::distance(words.begin(), item_it));
 }
 
 void MyTrends::find_first_largest(unsigned int pos)
@@ -73,7 +72,6 @@ void MyTrends::find_first_largest(unsigned int pos)
 	// if sort_start is already at the start of the list or if the item at
 	// sort_start is already larger than at pos, we dont need to look any further,
 	// the item at pos will be sorted.  we just need to update sort_end if needed
-
 	if (sort_start == 0 || (sort_start < pos && compare(words[sort_start], words[pos]))) {
 		if (pos > sort_end) {
 			sort_end = pos;

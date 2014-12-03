@@ -1,6 +1,6 @@
 CC	= g++
 CFLAGS	= -std=c++14 -Wall -Werror
-SOURCES	= src/*.cpp
+SOURCES	= src/*.cpp src/mongoose/*.cpp
 TARGET	= main
 DEBUG	= debug.out
 RELEASE = release.out

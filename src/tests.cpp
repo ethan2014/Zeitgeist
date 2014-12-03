@@ -6,13 +6,31 @@
 #include <vector>
 #include <string>
 
-#define MY_TEST
+#define TEST_ME
 
-#ifdef MY_TEST
+#ifdef TEST_ME
 #include "MyTrends.hpp"
 #define TRENDS_CLASS MyTrends
 #define TESTING "My Trends"
 static std::string OUT_FILE(".me");
+
+#elif defined(TEST_ONE)
+#include "sieger/ourTrends.h"
+#define TRENDS_CLASS siegerTrends
+#define TESTING "sieger"
+static std::string OUT_FILE(".sieger");
+
+#elif defined(TEST_TWO)
+#include "scott/apsmTrends.h"
+#define TRENDS_CLASS apsmTrends
+#define TESTING "scott"
+static std::string OUT_FILE(".scott");
+
+#elif defined(TEST_THREE)
+#include "mongoose/mongooseTrends.h"
+#define TRENDS_CLASS mongooseTrends
+#define TESTING "mongoose"
+static std::string OUT_FILE(".mongoose");
 
 #else
 #include "smarterTrends.h"
