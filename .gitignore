@@ -20,4 +20,6 @@ debug.out
 release.out
 
 # output files in data
-*.txt.out.*
+*.txt.out.me
+*.txt.out.smart
+*.txt.out
